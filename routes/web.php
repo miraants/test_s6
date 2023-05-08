@@ -15,11 +15,11 @@ use App\Http\Controllers\ClientController;
 |
 */
 
-Route::get('/', function () {
-    return view('Admin/index');
-});
+// Route::get('/', function () {
+//     return view('Admin/index');
+// });
 
-//Route::get('/', [ClientController::class, 'accueil']);
+Route::get('/', [ClientController::class, 'accueil']);
 Route::post('/loginAdmin', [AdminController::class, 'loginAdmin']);
 Route::post('/addArticle', [AdminController::class, 'addArticle']);
 Route::get('/article/fiche/{id}-{title}', [AdminController::class, 'fiche'])->name('article_fiche');
