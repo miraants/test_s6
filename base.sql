@@ -52,7 +52,7 @@ create table article(
     resume varchar not null,
     idCategorie int not null,
     contenu varchar not null,
-    image varchar(255)
+    image text
 );
 alter table article
 add foreign key (idCategorie) references categorie(id);
@@ -111,7 +111,6 @@ select c.nom,
 from article a
     join categorie c on a.idCategorie = c.id
 group by c.nom;
-
 create view v_avgnb as
 SELECT c.nom as categorie,
     AVG(
@@ -120,14 +119,16 @@ SELECT c.nom as categorie,
 FROM categorie c
     INNER JOIN article a ON a.idCategorie = c.id
 GROUP BY c.nom;
-
 create view v_motcle as
-SELECT mot, SUM(nb_occurrences) AS total_occurrences
+SELECT mot,
+    SUM(nb_occurrences) AS total_occurrences
 FROM (
-  SELECT LOWER(regexp_split_to_table(contenu, E'\\\\s+')) AS mot, COUNT(*) AS nb_occurrences
-  FROM article
-  GROUP BY contenu, mot
-) AS mots_cles
+        SELECT LOWER(regexp_split_to_table(contenu, E'\\\\s+')) AS mot,
+            COUNT(*) AS nb_occurrences
+        FROM article
+        GROUP BY contenu,
+            mot
+    ) AS mots_cles
 WHERE LENGTH(mot) > 4
 GROUP BY mot
 ORDER BY total_occurrences DESC;

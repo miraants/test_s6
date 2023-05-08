@@ -33,7 +33,7 @@
                 <div class="card">
                     <div class="card">
                         <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
-                            <img src="{{ asset('img/' . $article->image) }}" alt="Profile">
+                            <img src="<?php echo $article->image ?>" alt="Profile" width="400">
                         </div>
                     </div>
                     <div class="card-body">

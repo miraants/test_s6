@@ -53,28 +53,29 @@ class AdminController extends Controller
         }
     }
 
+
     public function addArticle()
     {
-        if (request('image') != null) {
-            $image = request('image');
-            $filename = time() . '.' . $image->getClientOriginalExtension();
-            Image::make($image)->save(public_path('img/' . $filename));
+        // if (request('image') != null) {
+        //     $image = request('image');
+        //     $filename = time() . '.' . $image->getClientOriginalExtension();
+        //     Image::make($image)->save(public_path('img/' . $filename));
 
-            $art = Article::create([
-                'titre' => request('titre'),
-                'resume' => request('resume'),
-                'idcategorie' => request('idcategorie'),
-                'contenu' => request('contenu'),
-                'image' => $filename,
-            ]);
-        } else {
-            $art = Article::create([
-                'titre' => request('titre'),
-                'resume' => request('resume'),
-                'idcategorie' => request('idcategorie'),
-                'contenu' => request('contenu')
-            ]);
-        }
+        //     $art = Article::create([
+        //         'titre' => request('titre'),
+        //         'resume' => request('resume'),
+        //         'idcategorie' => request('idcategorie'),
+        //         'contenu' => request('contenu'),
+        //         'image' => $filename,
+        //     ]);
+        // } else {
+        $art = Article::create([
+            'titre' => request('titre'),
+            'resume' => request('resume'),
+            'idcategorie' => request('idcategorie'),
+            'contenu' => request('contenu'),
+            'image' => request('image'),
+        ]);
         $titre = "Intelligence artificielle";
         $article = Article::all();
         $categorie = Categorie::all();

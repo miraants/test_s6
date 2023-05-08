@@ -79,7 +79,7 @@
                                 <?php $c = 0 ?>
                                 @foreach($categorie as $p)
                                 <div class="row">
-                                    <h5 class="col-lg-3 col-md-4 label "><a href="{{ route('article',['id'=>$p->id, 'title'=>$title[$c] ]) }}">{{$p->nom}}</a></h5>
+                                    <h5 class="col-lg-3 col-md-4 label "><a href="{{ route('article',['id'=>$p->id, 'title'=>$titre[$c] ]) }}">{{$p->nom}}</a></h5>
                                     <h6 class="col-lg-9 col-md-8">{{$p->description}}</h6>
                                 </div>
                                 <?php $c++; ?>

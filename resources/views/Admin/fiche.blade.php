@@ -22,7 +22,7 @@
                                         </h5>
                                         <div class="card">
                                             <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
-                                                <img src="{{ asset('img/' . $article->image) }}" alt="Intelligence artificielle">
+                                                <img src="<?php echo $article->image ?>" alt="Intelligence artificielle" width="400">
                                             </div>
                                         </div>
                                         <h6 class="card-footer">
