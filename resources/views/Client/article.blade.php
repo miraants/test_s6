@@ -1,13 +1,13 @@
 @extends('layouts.app')
-
+@include('partials.asideClient')
 @section('content')
 <main id="main" class="main">
 
     <div class="pagetitle">
-        <h1>Cards</h1>
+        <h1>Intelligence artificielle</h1>
         <nav>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                <li class="breadcrumb-item"><a href="/retourClient">Home</a></li>
                 <li class="breadcrumb-item">Components</li>
                 <li class="breadcrumb-item active">Cards</li>
             </ol>
@@ -31,7 +31,11 @@
                 </div><!-- End Default Card -->
 
                 <div class="card">
-                    <img src="{{ asset('img/' . $article->image) }}">
+                    <div class="card">
+                        <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
+                            <img src="{{ asset('img/' . $article->image) }}" alt="Profile">
+                        </div>
+                    </div>
                     <div class="card-body">
                         <h3 class="card-title">{{$article->titre}}</h3>
                         <h4>{{$article->nom}}</h4>

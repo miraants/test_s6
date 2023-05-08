@@ -1,5 +1,5 @@
 @extends('layouts.app')
-
+@include('partials.aside')
 @section('content')
 <main id="main" class="main">
 
@@ -35,7 +35,7 @@
                                 <div class="col-sm-2">
                                     <select class="form-select" aria-label="Default select example" name="montant">
                                         @foreach($article as $p)
-                                        <option selected value="{{$p->resume}}">{{$p->resume}}</option>
+                                        <option selected value="{{$p->resume}}">{{$p->titre}}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -140,12 +140,13 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                <?php $c = 0 ?>
                                 @foreach($article as $p)
                                 <tr>
                                     <th scope="row">{{ $p->id }}</th>
                                     <td>{{ $p->resume }}</td>
                                     <td>{{ $p->idcategorie }}</td>
-                                    <td><a class="btn btn-outline-primary" href="{{ route('article_fiche',['id'=>$p->id]) }}">Voir Fiche</a></td>
+                                    <td><a class="btn btn-outline-primary" href="{{ route('article_fiche',['id'=>$p->id, 'title'=>$title[$c] ]) }}">Voir Fiche</a></td>
                                     <td>
 
                                     </td>
@@ -209,7 +210,9 @@
                                     </td>
 
                                 </tr>
+                                <?php $c++; ?>
                                 @endforeach
+
                             </tbody>
                         </table>
 

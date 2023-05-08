@@ -64,22 +64,70 @@ from article a
 INSERT INTO article (titre, resume, idCategorie, contenu, image)
 VALUES (
         'Les applications de l ''intelligence artificielle faible',
-        'Découvrez les differents exemples d''intelligence artificielle faible qui sont utilises dans le monde de la technologie.',
+        'Decouvrez les differents exemples d''intelligence artificielle faible qui sont utilises dans le monde de la technologie.',
         1,
-        'L''intelligence artificielle faible est utilisee dans de nombreux domaines, tels que la reconnaissance vocale et la reconnaissance d''images. Les machines qui utilisent l''IA faible sont programmees pour effectuer des tâches spécifiques et sont limitees dans leur capacite a raisonner et a prendre des decisions. Dans cet article, nous allons vous presenter les applications les plus courantes de l''intelligence artificielle faible.',
-        'ia-faible.jpg'
+        'L''intelligence artificielle faible est utilisee dans de nombreux domaines, tels que la reconnaissance vocale et la reconnaissance d''images. Les machines qui utilisent l''IA faible sont programmees pour effectuer des tâches specifiques et sont limitees dans leur capacite a raisonner et a prendre des decisions. Dans cet article, nous allons vous presenter les applications les plus courantes de l''intelligence artificielle faible.',
+        'Ia-faible.jpg'
     ),
     (
         'Les dernieres avancees de l''intelligence artificielle forte',
-        'Découvrez les dernieres avancees dans le domaine de l''intelligence artificielle forte et comment elles peuvent etre utilisees pour résoudre des problemes complexes.',
+        'Decouvrez les dernieres avancees dans le domaine de l''intelligence artificielle forte et comment elles peuvent etre utilisees pour resoudre des problemes complexes.',
         2,
         'L''intelligence artificielle forte est un domaine de l''informatique qui se concentre sur la creation de machines intelligentes qui peuvent raisonner et prendre des decisions comme les humains. Les dernieres avancees de l''IA forte ont des applications dans de nombreux domaines, tels que la medecine et la finance. Dans cet article, nous allons vous presenter les dernieres avancees de l''intelligence artificielle forte et discuter de leur potentiel pour resoudre des problemes complexes.',
-        'ia-forte.jpg'
+        'IA-forte.jpg'
     ),
     (
         'Les fondements de l''intelligence artificielle symbolique',
-        'Découvrez les fondements de l''intelligence artificielle symbolique et comment elle est utilisee pour resoudre des problemes de logique.',
+        'Decouvrez les fondements de l''intelligence artificielle symbolique et comment elle est utilisee pour resoudre des problemes de logique.',
         3,
         'L''intelligence artificielle symbolique est un domaine de l''IA qui utilise des symboles pour representer des connaissances et des relations entre des concepts. Elle est utilisee pour resoudre des problemes de logique, tels que le raisonnement et la planification. Dans cet article, nous allons vous presenter les fondements de l''intelligence artificielle symbolique et comment elle est utilisee pour resoudre des problemes de logique.',
-        'ia-symbolique.jpg'
+        'AI-symbolic.jpg'
     );
+INSERT INTO article (titre, resume, idCategorie, contenu, image)
+VALUES (
+        'Les reseaux de neurones en IA connexionniste',
+        'L''IA connexionniste utilise des reseaux de neurones pour resoudre des problemes',
+        4,
+        'Les reseaux de neurones artificiels sont des modeles de l''IA connexionniste utilises pour la reconnaissance de formes, la classification, la prediction, etc. Les reseaux de neurones sont composes de neurones artificiels relies par des synapses artificielles qui peuvent apprendre à partir de donnees. Ils ont ete largement utilises dans la reconnaissance de la parole, la reconnaissance d''images, la traduction de langues, etc',
+        'connexionniste-delintelligence.png'
+    ),
+    (
+        'Les algorithmes genetiques en IA evolutive',
+        'L''IA evolutive utilise des algorithmes genetiques pour resoudre des problemes',
+        5,
+        'Les algorithmes genetiques sont des techniques de l''IA evolutive qui s''inspirent du processus d''evolution naturelle pour resoudre des problemes d''optimisation, de planification, de conception, etc. Ils fonctionnent en generant une population de solutions potentielles, puis en utilisant des operateurs genetiques tels que la mutation, la croisement et la selection pour produire de nouvelles solutions. Les algorithmes genetiques ont ete largement utilises dans l''optimisation de la production, la conception de circuits electroniques, la planification de la production, etc.',
+        'RobotEvolution.jpg.'
+    ),
+    (
+        'Les interfaces cerveau-machine en IA cognitive',
+        'L''IA cognitive utilise des interfaces cerveau-machine pour interagir avec l''homme',
+        6,
+        'Les interfaces cerveau-machine sont des dispositifs qui permettent la communication entre le cerveau humain et les ordinateurs. Les interfaces cerveau-machine ont ete developpees dans le domaine de l''IA cognitive pour permettre une interaction plus naturelle entre les machines et les humains, en utilisant la pensee, l''emotion, la sensation, etc. Les interfaces cerveau-machine ont ete utilisees pour la commande de protheses, la communication avec des patients atteints de troubles moteurs, la surveillance de l''etat emotionnel, etc.',
+        'Intelligence_artificielle-cognitive.jpg'
+    );
+create view v_nombre as
+select c.nom,
+    count(*) as nombre
+from article a
+    join categorie c on a.idCategorie = c.id
+group by c.nom;
+
+create view v_avgnb as
+SELECT c.nom as categorie,
+    AVG(
+        LENGTH(a.contenu) - LENGTH(REPLACE(a.contenu, ' ', '')) + 1
+    ) as nombre_mots_moyen
+FROM categorie c
+    INNER JOIN article a ON a.idCategorie = c.id
+GROUP BY c.nom;
+
+create view v_motcle as
+SELECT mot, SUM(nb_occurrences) AS total_occurrences
+FROM (
+  SELECT LOWER(regexp_split_to_table(contenu, E'\\\\s+')) AS mot, COUNT(*) AS nb_occurrences
+  FROM article
+  GROUP BY contenu, mot
+) AS mots_cles
+WHERE LENGTH(mot) > 4
+GROUP BY mot
+ORDER BY total_occurrences DESC;

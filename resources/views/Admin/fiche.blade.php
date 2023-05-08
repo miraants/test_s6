@@ -1,5 +1,5 @@
 @extends('layouts.app')
-
+@include('partials.aside')
 @section('content')
 
 <main id="main" class="main">
@@ -20,7 +20,11 @@
                                         <h5 class="card-body">
                                             <?php echo $article->contenu ?>
                                         </h5>
-                                        <img src="{{ asset('img/' . $article->image) }}">
+                                        <div class="card">
+                                            <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
+                                                <img src="{{ asset('img/' . $article->image) }}" alt="Intelligence artificielle">
+                                            </div>
+                                        </div>
                                         <h6 class="card-footer">
                                             <p class="mb-0 text-muted">{{ $article->resume }}</p>
                                         </h6>

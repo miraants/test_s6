@@ -15,18 +15,19 @@ use App\Http\Controllers\ClientController;
 |
 */
 
-/*Route::get('/', function () {
-    return view('Client/accueil');
-});*/
+Route::get('/', function () {
+    return view('Admin/index');
+});
 
-Route::get('/', [ClientController::class, 'accueil']);
+//Route::get('/', [ClientController::class, 'accueil']);
 Route::post('/loginAdmin', [AdminController::class, 'loginAdmin']);
 Route::post('/addArticle', [AdminController::class, 'addArticle']);
-Route::get('/article/fiche/{id}', [AdminController::class, 'fiche'])->name('article_fiche');
+Route::get('/article/fiche/{id}-{title}', [AdminController::class, 'fiche'])->name('article_fiche');
 Route::post('/deleteArticle', [AdminController::class, 'deleteArticle']);
 Route::post('/updateArticle/{id}', [AdminController::class, 'updateArticle']);
 Route::post('/rechercheflex', [AdminController::class, 'rechercheflex']);
 Route::put('article/{id}', [AdminController::class, 'updateArticle'])->name('article.update');
-Route::get('client/article/{id}', [ClientController::class, 'article'])->name('article');
+Route::get('client/article/{id}-{title}', [ClientController::class, 'article'])->name('article');
 Route::get('/retourAdmin', [AdminController::class, 'retourAdmin']);
 Route::get('/retourClient', [ClientController::class, 'retourClient']);
+Route::get('/stat', [AdminController::class, 'stat']);

@@ -15,7 +15,11 @@ class ClientController extends Controller
         $categorie = Categorie::all();
         $article = VArticle::all();
         $titre = "Intelligence artificielle";
-        return view('Client/accueil', compact('article', 'titre', 'categorie'));
+        $title = [];
+        foreach ($article as $a) {
+            array_push($title, AdminController::getSlug($a->titre));
+        }
+        return view('Client/accueil', compact('article', 'titre', 'categorie', 'titre'));
     }
 
     public function article($idcategorie)

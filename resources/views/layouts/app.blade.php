@@ -18,7 +18,7 @@
 
     @include('partials.header')
     @include('partials.head')
-    @include('partials.aside')
+
     @yield('content')
     @include('partials.footer')
 
